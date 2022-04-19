@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dithered Dreams of RGB</title>
+	<meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
+    <script id="fxhash-snippet">
+      //---- do not edit the following code (you can indent as you wish)
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = "oo" + Array(49).fill(0).map(_=>alphabet[(Math.random()*alphabet.length)|0]).join('')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhash.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+	 
+      //---- /do not edit the following code
+    </script>
+    <script src="./hydra-synth.js"></script>
+	<link rel="stylesheet" type="text/css" href="./style.css" />
+	<meta charset="utf-8" />
+    <!-- if you need to import js scripts do it here -->
+  </head>
+
+  <body>
+
+
+    <script>
+		var hydra = new Hydra({detectAudio: false});
+	    	console.log(hydra);
+		hydra.setResolution(window.innerWidth, window.innerHeight);
+		window.addEventListener("resize",evt=>{hydra.setResolution(window.innerWidth, window.innerHeight)});
+    </script>
+
+    <script src="./sketch2.js"></script>
+
+  </body>
+</html>
